@@ -1,10 +1,9 @@
-'use strict';
+"use strict";
 
-import React, {Component} from 'react';
-import TextField from 'material-ui/lib/text-field';
+import React, { Component } from "react";
+import TextField from "material-ui/lib/text-field";
 
 class CurrencyField extends Component {
-
     constructor(props) {
         super(props);
         this.onInputType = this.onInputType.bind(this);
@@ -12,7 +11,7 @@ class CurrencyField extends Component {
         this.parseRawValue = this.parseRawValue.bind(this);
         this.defaultConverter = this.defaultConverter.bind(this);
         this.state = {
-            rawValue: this.props.value,
+            rawValue: this.props.value
         };
     }
 
@@ -22,7 +21,7 @@ class CurrencyField extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.value) {
-            this.setState({rawValue: nextProps.value});
+            this.setState({ rawValue: nextProps.value });
         }
     }
 
@@ -36,7 +35,7 @@ class CurrencyField extends Component {
 
         this.notifyParentWithRawValue(rawValue);
 
-        this.setState({rawValue});
+        this.setState({ rawValue });
     }
 
     notifyParentWithRawValue(rawValue) {
@@ -46,13 +45,13 @@ class CurrencyField extends Component {
     }
 
     parseRawValue(displayedValue) {
-        const value = displayedValue.replace(/[^0-9]/g, '');
+        const value = displayedValue.replace(/[^0-9]/g, "");
 
         return parseFloat(value);
     }
 
     formatRawValue(rawValue) {
-        const minChars = '0'.length + this.props.precision;
+        const minChars = "0".length + this.props.precision;
 
         let result = `${rawValue}`;
 
@@ -62,16 +61,21 @@ class CurrencyField extends Component {
             result = `${leftZeroPad}${result}`;
         }
 
-        let beforeSeparator = result.slice(0, result.length - this.props.precision);
-        const afterSeparator = result.slice(result.length - this.props.precision);
+        let beforeSeparator = result.slice(
+            0,
+            result.length - this.props.precision
+        );
+        const afterSeparator = result.slice(
+            result.length - this.props.precision
+        );
 
         if (beforeSeparator.length > 3) {
-            const chars = beforeSeparator.split('').reverse();
-            let withDots = '';
+            const chars = beforeSeparator.split("").reverse();
+            let withDots = "";
 
             for (let i = chars.length - 1; i >= 0; i--) {
                 const char = chars[i];
-                const dot = i % 3 === 0 ? this.props.delimiter : '';
+                const dot = i % 3 === 0 ? this.props.delimiter : "";
                 withDots = `${withDots}${char}${dot}`;
             }
 
@@ -89,7 +93,7 @@ class CurrencyField extends Component {
     }
 
     defaultConverter(val) {
-        const {precision} = this.props;
+        const { precision } = this.props;
         const raw = val.toString();
 
         if (Number.isNaN(parseFloat(raw))) {
@@ -110,14 +114,19 @@ class CurrencyField extends Component {
     }
 
     render() {
+        delete this.props.precision;
+        delete this.props.separator;
+        delete this.props.delimiter;
+        delete this.props.unit;
+
         return (
             <TextField
                 {...this.props}
                 onChange={this.onInputType}
-                value={this.formatRawValue(this.state.rawValue)} />
+                value={this.formatRawValue(this.state.rawValue)}
+            />
         );
     }
-
 }
 
 CurrencyField.propTypes = {
@@ -128,16 +137,16 @@ CurrencyField.propTypes = {
     separator: React.PropTypes.string,
     unit: React.PropTypes.string,
     value: React.PropTypes.number,
-    converter: React.PropTypes.func,
+    converter: React.PropTypes.func
 };
 
 CurrencyField.defaultProps = {
     value: 0,
     precision: 2,
-    separator: '.',
-    delimiter: ',',
-    unit: '',
-    onChange: () => {},
+    separator: ".",
+    delimiter: ",",
+    unit: "",
+    onChange: () => {}
 };
 
 export default CurrencyField;
