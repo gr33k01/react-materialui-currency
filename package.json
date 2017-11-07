@@ -4,7 +4,7 @@
   "description": "Currency TextField for Material-UI",
   "main": "lib/index.js",
   "scripts": {
-    "build": "npm run lint && npm test && babel ./src --ignore *-test.js --out-dir ./lib",
+    "build": "babel ./src --ignore *-test.js --out-dir ./lib",
     "prebuild": "rimraf lib",
     "test": "jest",
     "lint": "eslint --ext .js src && echo \"eslint: no lint errors\""
@@ -21,17 +21,14 @@
     "type": "git",
     "url": "git+https://github.com/helderfarias/react-materialui-currency.git"
   },
-  "keywords": [
-    "react",
-    "material-ui",
-    "material design"
-  ],
+  "keywords": ["react", "material-ui", "material design"],
   "author": "Helder Farias",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/helderfarias/react-materialui-currency/issues"
   },
-  "homepage": "https://github.com/helderfarias/react-materialui-currency#readme",
+  "homepage":
+    "https://github.com/helderfarias/react-materialui-currency#readme",
   "peerDependencies": {
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
